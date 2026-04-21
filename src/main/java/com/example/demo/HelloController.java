@@ -19,7 +19,7 @@ public class HelloController {
      */
     @GetMapping("/hello")
     public String sayHello() {
-        return "안녕하세요! 스프링의 세계에 오신 것을 환영합니다. 🔥";
+        return "안녕하세요! 스프링의 세계에 오신 것을 환영합니다. 🔥"; 
     }
 
     /*

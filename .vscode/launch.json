@@ -6,6 +6,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "DemoApplication",
+         "request": "launch",
+         "mainClass": "com.example.demo.DemoApplication",
+         "projectName": "spring_review"
+      },
+      {
+         "type": "java",
          "name": "Spring Boot Run",
          "request": "launch",
          "mainClass": "com.example.demo.DemoApplication",
