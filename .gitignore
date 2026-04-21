@@ -1,0 +1,32 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/resources/architecture_flow.md
+!**/src/main/resources/architecture_summary.md
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### VS Code ###
+.vscode/
+
+bin/
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+.DS_Store
