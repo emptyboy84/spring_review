@@ -1,3 +1,5 @@
+/*우리가 어떤 재료(Web, Lombok 등)를 쓸지 명시한 레시피 북입니다.*/
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.5'
