@@ -1,6 +1,6 @@
 /*DataTransferObject*/
 /* 외부 API에게 보낼 요청값을 담는 상자*/
-package com.example.demo;
+package com.example.demo.DTO;
 
 import java.util.List;
 
