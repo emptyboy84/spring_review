@@ -1,21 +1,13 @@
 /*데이터의 모양과 규칙을 모아두는 방*/
 // 1. 방금 우리가 만든 데이터 껍데기 (자바의 DTO 클래스 역할)
-export interface CompanyData {
+
+export interface CompanyData {// 백엔드에서 받아올 데이터의 규칙을 정의
+
    company: string;
    regNum: string;
    addr: string;
    phoneNum: string;
+   status: string;
+
 }
 
-// 2. 백엔드와 통신하는 함수
-export const fetchCompanyStatus = async (inputRegNum: string): Promise<string> => {
-   try {
-      const response = await fetch(`http://localhost:8080/company/api/status?regNum=${inputRegNum}`);
-      const statusText = await response.text();
-      return statusText;
-
-   } catch (error) {
-      console.error("조회 실패:", error);
-      throw error;
-   }
-};
