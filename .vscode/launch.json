@@ -6,6 +6,13 @@
    "configurations": [
       {
          "type": "java",
+         "name": "CompanyApplication",
+         "request": "launch",
+         "mainClass": "com.example.demo.CompanyApplication",
+         "projectName": "demo-backend"
+      },
+      {
+         "type": "java",
          "name": "DemoApplication",
          "request": "launch",
          "mainClass": "com.example.demo.DemoApplication",

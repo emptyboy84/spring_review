@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:3000") // Next.js(3000번 포트)에서 오는 요청을 허락해줍니다!
 @RestController // 나는 프론트엔드의 요청을 받는 안내데스크야라고 스프링프레임워크에게 알려준다
 @RequestMapping("/company") // /company로 시작하는 모든 요청은 내가 담당하겠다!
-public class comapnyController {
+public class CompanyController {
 
    @Autowired // 주입해주세요! (외부 API데이터를 가져오는 일을 잘 아는 직원(companyService)을 데려와서 내
 
    // 곁에 둡니다.)
 
-   private companyService companyService;
+   private CompanyService companyService;
 
    // "누군가 /api/status 주소로 조회를 요청하면 이 메서드가 응대해라!"
    @GetMapping("/api/status") // //http://localhost:8080/company/api/status
