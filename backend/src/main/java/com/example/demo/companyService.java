@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;// java가 이해할수 있도록 번역해주는애 json형식을 java의 클래스형식으로 변환
 
 @Service // 이클래스는 "비즈니스로직"을설계하는클래스라고스프링에게 알려주는 어노테이션 : 이 파일(CompanyService.java)이
          // '서비스(Service)' 역할을 하는 부품(클래스)임을 스프링에게 알리는 신호입니다.

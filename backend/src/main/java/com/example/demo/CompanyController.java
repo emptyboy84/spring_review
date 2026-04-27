@@ -12,7 +12,9 @@
 대신, 사용자가 준 데이터(사업자번호)를 아까 우리가 만든 **CompanyService(실무자/요리사)**에게 툭 던져주면서 "이거 조회해서 결과 가져와!" 하고 일을 시킵니다.
 
 3. 결과물 서빙(응답)하기 🍽️
-CompanyService가 열심히 일해서 "계속사업자"라는 결과를 가져오면, 컨트롤러는 그걸 클라이언트가 이해하기 쉬운 예쁜 접시(JSON 포맷, ResponseEntity 등)에 담아서 다시 화면으로 돌려보내 줍니다(HTTP Response).*/
+CompanyService가 열심히 일해서 "계속사업자"라는 결과를 가져오면, 
+컨트롤러는 그걸 클라이언트가 이해하기 쉬운 예쁜 접시(JSON 포맷, ResponseEntity 등)
+에 담아서 다시 화면으로 돌려보내 줍니다(HTTP Response).*/
 
 package com.example.demo;
 
