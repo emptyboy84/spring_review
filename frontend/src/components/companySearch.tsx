@@ -1,4 +1,7 @@
-/*  
+//useClient를 사용해야지 상태를 저장하고 변경하는훅을 사용할수있음 (
+//server side code가 아니라 client side code라는걸 명시하는것이 좋음)
+"use client";
+/*
 React의 useState와 useEffect 핵심 차이: "데이터의 유통기한" ⏰
 
 💡 useState (현재 시점의 기억 저장소)
