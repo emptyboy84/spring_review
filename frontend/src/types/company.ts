@@ -3,13 +3,13 @@
 
 export interface CompanyData {// 백엔드에서 받아올 데이터의 규칙을 정의
 
-   company: string;
-   regNum: string;
-   addr: string;
-   phoneNum: string;
-   tax_type: string;
-   type: string;
-   b_stt_cd: string;
-   status: string;
+   company: string;//회사명
+   regNum: string;//사업자번호
+   addr: string;//주소
+   phoneNum: string;//전화번호
+   tax_type: string;//과세유형
+   type: string;//업종
+   b_stt_cd: string;//백엔드에서 실제값 저장하는곳
+   status: string;//화면에서 쓸 이름(front)
 }
 

@@ -50,7 +50,7 @@ export default function CompanySearch() {
 
          {/*result데이터가 들어오면 보여준다*/}
          {result && (
-            <div style={{ marginTop: '20px', padding: '10px', border: '1px solid_black' }}>
+            <div style={{ marginTop: '20px', padding: '10px', border: '1px solid black' }}>
                <h3>사업자 상태 조회 결과</h3>
                <p>회사명:{result?.company}</p>
                <p>사업자번호:{result?.regNum}</p>
