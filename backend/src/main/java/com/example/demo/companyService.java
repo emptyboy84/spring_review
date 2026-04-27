@@ -55,7 +55,7 @@ public class CompanyService {
          JsonNode rootNode = objectMapper.readTree(jsonResponse);// 가져온 문서(json)를 parse해서 분석
 
          // 8. 영업상태 값 추출
-         String status = rootNode.path("data").get(0).path("b_stt").asText();
+         String status = rootNode.path("data").get(0).path("b_stt_cd").asText();
          System.out.println("API 응답 상태: " + status);
 
          return status;

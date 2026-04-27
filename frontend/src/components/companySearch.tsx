@@ -34,7 +34,7 @@ export default function CompanySearch() {
       // 백엔드로 통신을 보내서 데이터를 받아옴
       const data = await fetchCompanyStatus(regNum);
       // 받아온 데이터를 result 공간에 집어넣음 -> ★이 순간 화면이 자동으로 새로고침(리렌더링)됨!★
-      setResult(result);
+      setResult(data);//state 업데이트로인해 화면이 새로고침됨
    };
 
 
@@ -53,6 +53,8 @@ export default function CompanySearch() {
             <div style={{ marginTop: '20px', padding: '10px', border: '1px solid_black' }}>
                <h3>사업자 상태 조회 결과</h3>
                <p>회사명:{result?.company}</p>
+               <p>사업자번호:{result?.regNum}</p>
+               <p>업종:{result.type}</p>
                <p>영업상태:{result.status === "01" ? "🟢 계속사업자" : "🔴 폐업자"}</p>
                <p>과세유형:{result.tax_type}</p>
 
