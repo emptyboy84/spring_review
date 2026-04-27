@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --color-moneypin: #FF4D4D;
+  --color-moneypin-hover: #E64444;
+  --color-bg-gray: #F8F9FA;
+  --font-main: 'Outfit', 'Inter', sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background-color: var(--color-bg-gray);
+  color: #212529;
+  font-family: var(--font-main);
+}
+
+/* MoneyPin Style Shadows & Transitions */
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.search-shadow {
+  box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}

@@ -1,15 +1,27 @@
-/*데이터의 모양과 규칙을 모아두는 방*/
-// 1. 방금 우리가 만든 데이터 껍데기 (자바의 DTO 클래스 역할)
-
-export interface CompanyData {// 백엔드에서 받아올 데이터의 규칙을 정의
-
-   company: string;//회사명
-   regNum: string;//사업자번호
-   addr: string;//주소
-   phoneNum: string;//전화번호
-   tax_type: string;//과세유형
-   type: string;//업종
-   b_stt_cd: string;//백엔드에서 실제값 저장하는곳
-   status: string;//화면에서 쓸 이름(front)
+export interface FinancialData {
+   year: string;
+   revenue: number;
+   employeeCount: number;
 }
 
+export interface CompanyData {
+   company: string;          // 회사명 (DART corp_name)
+   regNum: string;           // 사업자번호
+   addr: string;             // 주소
+   phoneNum: string;         // 대표전화
+   tax_type: string;         // 과세유형 (NTS)
+   type: string;             // 업종코드 (DART induty_code)
+   b_stt_cd: string;         // 상태코드 (01: 계속, 02: 휴업, 03: 폐업)
+   status: string;           // 상태
+
+   // DART 기업개황 데이터
+   ceo?: string;             // 대표자명
+   foundationDate?: string;  // 설립일 (YYYY-MM-DD)
+   corpType?: string;        // 기업구분 (유가증권시장, 코스닥 등)
+   faxNum?: string;          // 대표팩스
+   email?: string;           // 홈페이지 URL
+   stockCode?: string;       // 종목코드 (상장사)
+
+   // 5개년 재무/직원 데이터
+   history?: FinancialData[];
+}
