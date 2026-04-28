@@ -1,6 +1,6 @@
 import { CompanyData } from "@/types/company";
 
-const API_BASE = "http://localhost:8080/company";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/company";
 
 // 통합 검색 (명칭, 사업자번호, 전화번호 자동 판별)
 export const fetchUnifiedSearch = async (keyword: string): Promise<any> => {
