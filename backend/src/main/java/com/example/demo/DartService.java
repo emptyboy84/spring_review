@@ -154,7 +154,8 @@ public class DartService {
                 info.put("faxNum", root.path("fax_no").asText(""));
                 info.put("email", root.path("hm_url").asText(""));
                 info.put("foundationDate", formatDate(root.path("est_dt").asText("")));
-                info.put("type", root.path("induty_code").asText(""));
+                String indutyCode = root.path("induty_code").asText("");
+                info.put("type", resolveIndustryName(indutyCode));
                 info.put("stockCode", root.path("stock_code").asText(""));
 
                 // 기업구분 (Y: 유가증권, K: 코스닥, N: 코넥스, E: 기타)
@@ -167,8 +168,11 @@ public class DartService {
                 };
                 info.put("corpType", corpType);
 
-                // 캐시 업데이트
+                // 사업자등록번호 추가 (통합 검색 및 매핑용)
                 String bizrNo = root.path("bizr_no").asText("");
+                info.put("bizr_no", bizrNo);
+
+                // 캐시 업데이트
                 if (!bizrNo.isEmpty()) {
                     bizrNoToCorpCode.put(bizrNo, corpCode);
                 }
@@ -358,5 +362,94 @@ public class DartService {
             }
         }
         return results;
+    }
+    // ──────────────────────────────────────────────
+    // KSIC 업종코드 → 한글 업종명 변환
+    // ──────────────────────────────────────────────
+    private static final Map<String, String> INDUSTRY_MAP = Map.ofEntries(
+        // 제조업
+        Map.entry("10", "식료품 제조업"),
+        Map.entry("11", "음료 제조업"),
+        Map.entry("13", "섬유제품 제조업"),
+        Map.entry("14", "의복 제조업"),
+        Map.entry("20", "화학물질 및 화학제품 제조업"),
+        Map.entry("21", "의료용 물질 및 의약품 제조업"),
+        Map.entry("22", "고무 및 플라스틱제품 제조업"),
+        Map.entry("23", "비금속 광물제품 제조업"),
+        Map.entry("24", "1차 금속 제조업"),
+        Map.entry("25", "금속가공제품 제조업"),
+        Map.entry("26", "전자부품·컴퓨터·영상·음향 및 통신장비 제조업"),
+        Map.entry("261", "반도체 제조업"),
+        Map.entry("262", "전자부품 제조업"),
+        Map.entry("263", "컴퓨터 및 주변장치 제조업"),
+        Map.entry("264", "반도체 제조업"),
+        Map.entry("265", "통신 및 방송장비 제조업"),
+        Map.entry("266", "영상 및 음향기기 제조업"),
+        Map.entry("27", "의료·정밀·광학기기 및 시계 제조업"),
+        Map.entry("28", "전기장비 제조업"),
+        Map.entry("29", "기타 기계 및 장비 제조업"),
+        Map.entry("30", "자동차 및 트레일러 제조업"),
+        Map.entry("301", "자동차용 엔진 및 자동차 제조업"),
+        Map.entry("303", "자동차 부품 제조업"),
+        Map.entry("31", "기타 운송장비 제조업"),
+        Map.entry("311", "선박 및 보트 건조업"),
+        Map.entry("312", "철도장비 제조업"),
+        Map.entry("313", "항공기·우주선 및 부품 제조업"),
+        Map.entry("32", "가구 제조업"),
+        Map.entry("33", "기타 제품 제조업"),
+        // 건설업
+        Map.entry("41", "종합 건설업"),
+        Map.entry("42", "전문직별 공사업"),
+        // 도매 및 소매업
+        Map.entry("45", "자동차 및 부품 판매업"),
+        Map.entry("46", "도매 및 상품 중개업"),
+        Map.entry("47", "소매업"),
+        // 정보통신업
+        Map.entry("58", "출판업"),
+        Map.entry("582", "소프트웨어 개발 및 공급업"),
+        Map.entry("58221", "시스템 소프트웨어 개발 및 공급업"),
+        Map.entry("58222", "응용 소프트웨어 개발 및 공급업"),
+        Map.entry("59", "영상·오디오 기록물 제작 및 배급업"),
+        Map.entry("60", "방송업"),
+        Map.entry("61", "통신업"),
+        Map.entry("611", "유선통신업"),
+        Map.entry("612", "무선통신업"),
+        Map.entry("62", "컴퓨터 프로그래밍·시스템 통합 및 관리업"),
+        Map.entry("63", "정보서비스업"),
+        Map.entry("631", "자료처리·호스팅·포털 및 기타 인터넷 정보매개 서비스업"),
+        // 금융 및 보험업
+        Map.entry("64", "금융업"),
+        Map.entry("641", "은행 및 저축기관"),
+        Map.entry("649", "기타 금융업"),
+        Map.entry("65", "보험 및 연금업"),
+        Map.entry("66", "금융 및 보험 관련 서비스업"),
+        // 부동산업
+        Map.entry("68", "부동산업"),
+        // 전문·과학 및 기술 서비스업
+        Map.entry("70", "연구개발업"),
+        Map.entry("71", "전문서비스업"),
+        Map.entry("72", "건축기술·엔지니어링 및 기타 과학기술 서비스업"),
+        Map.entry("73", "기타 전문·과학 및 기술 서비스업")
+    );
+
+    private String resolveIndustryName(String code) {
+        if (code == null || code.isEmpty()) return "-";
+
+        // 정확한 매칭 먼저 시도
+        if (INDUSTRY_MAP.containsKey(code)) {
+            return INDUSTRY_MAP.get(code);
+        }
+
+        // 상위 분류 코드로 시도 (5자리 → 3자리 → 2자리)
+        if (code.length() >= 3) {
+            String mid = code.substring(0, 3);
+            if (INDUSTRY_MAP.containsKey(mid)) return INDUSTRY_MAP.get(mid);
+        }
+        if (code.length() >= 2) {
+            String top = code.substring(0, 2);
+            if (INDUSTRY_MAP.containsKey(top)) return INDUSTRY_MAP.get(top);
+        }
+
+        return "업종코드 " + code;
     }
 }

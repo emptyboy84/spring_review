@@ -5,6 +5,7 @@ export interface FinancialData {
 }
 
 export interface CompanyData {
+   email: string | undefined;
    company: string;          // 회사명 (DART corp_name)
    regNum: string;           // 사업자번호
    addr: string;             // 주소
@@ -14,14 +15,18 @@ export interface CompanyData {
    b_stt_cd: string;         // 상태코드 (01: 계속, 02: 휴업, 03: 폐업)
    status: string;           // 상태
 
-   // DART 기업개황 데이터
-   ceo?: string;             // 대표자명
-   foundationDate?: string;  // 설립일 (YYYY-MM-DD)
-   corpType?: string;        // 기업구분 (유가증권시장, 코스닥 등)
-   faxNum?: string;          // 대표팩스
-   email?: string;           // 홈페이지 URL
-   stockCode?: string;       // 종목코드 (상장사)
+   // DART 및 확장 정보
+   ceo?: string;
+   foundationDate?: string;
+   corpType?: string;
+   faxNum?: string;
+   stockCode?: string;
 
-   // 5개년 재무/직원 데이터
+   // 하이브리드 수집 정보 (크롤링 및 맵)
+   representativeEmail?: string;
+   naverMapLink?: string;
+   kakaoMapLink?: string;
+
+   // 5개년 재무/고용 데이터
    history?: FinancialData[];
 }

@@ -30,3 +30,6 @@ bin/
 *.swp
 *~
 .DS_Store
+
+# Scratch files
+scratch/

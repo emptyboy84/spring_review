@@ -17,17 +17,14 @@ export default function RootLayout({
             <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 px-6 py-4">
                <div className="max-w-7xl mx-auto flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                     <span className="text-2xl font-bold text-moneypin tracking-tighter">Bizno</span>
-                     <span className="bg-gray-100 text-gray-500 text-[10px] font-bold px-1.5 py-0.5 rounded">CLONE</span>
+                     <div className="w-8 h-8 bg-moneypin rounded-lg flex items-center justify-center text-white font-black italic">H</div>
+                     <span className="text-xl font-black text-gray-900 tracking-tighter uppercase">Harness <span className="text-moneypin">Engineering</span></span>
                   </div>
-                  <nav className="hidden md:flex gap-8 text-sm font-semibold text-gray-600">
-                     <a href="#" className="hover:text-moneypin transition-colors">사업자조회</a>
-                     <a href="#" className="hover:text-moneypin transition-colors">기업분석</a>
-                     <a href="#" className="hover:text-moneypin transition-colors">AI 브리핑</a>
+                  <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500">
+                     <a href="#" className="text-moneypin">기업분석</a>
+                     <a href="#" className="hover:text-moneypin transition-colors">데이터랩</a>
+                     <a href="#" className="hover:text-moneypin transition-colors">API센터</a>
                   </nav>
-                  <button className="bg-moneypin text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-moneypin-hover transition-all">
-                     무료 시작하기
-                  </button>
                </div>
             </header>
 
@@ -36,13 +33,15 @@ export default function RootLayout({
             </main>
 
             {/* Clean Footer */}
-            <footer className="bg-white border-t border-gray-100 py-12 px-6">
+            <footer className="bg-slate-900 text-slate-400 py-20 px-6 border-t border-slate-800">
                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
                   <div className="col-span-1 md:col-span-2">
-                     <span className="text-xl font-bold text-gray-400">Bizno Clone</span>
-                     <p className="mt-4 text-sm text-gray-500 max-w-sm">
-                        대한민국 모든 기업의 정보를 한눈에 확인하세요.<br />
-                        국세청 및 DART API를 연동한 실시간 기업 데이터 서비스입니다.
+                     <div className="flex items-center gap-2 mb-6">
+                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-black italic">H</div>
+                        <span className="text-xl font-black text-white tracking-tighter uppercase">Harness <span className="text-blue-500">Eng.</span></span>
+                     </div>
+                     <p className="mt-4 text-sm text-gray-400 max-w-sm font-medium leading-relaxed">
+                        하네스 엔지니어링은 DART와 웹 데이터 인텔리전스를 결합하여 기업의 진정한 가치를 분석하는 차세대 기업 데이터 분석 솔루션입니다.
                      </p>
                   </div>
                   <div>
@@ -63,7 +62,7 @@ export default function RootLayout({
                   </div>
                </div>
                <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-50 text-center text-xs text-gray-400">
-                  © 2026 Bizno Clone Project. All rights reserved.
+                  © 2026 Harness Engineering. All rights reserved.
                </div>
             </footer>
          </body>

@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-moneypin: #FF4D4D;
-  --color-moneypin-hover: #E64444;
-  --color-bg-gray: #F8F9FA;
+  --color-moneypin: #1E3A8A;
+  --color-moneypin-hover: #1D4ED8;
+  --color-bg-gray: #F8FAFC;
   --font-main: 'Outfit', 'Inter', sans-serif;
 }
 
@@ -18,13 +18,13 @@ body {
   font-family: var(--font-main);
 }
 
-/* MoneyPin Style Shadows & Transitions */
+/* Shadows */
 .card-shadow {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .search-shadow {
-  box-shadow: 0 10px 30px rgba(255, 77, 77, 0.1);
+  box-shadow: 0 10px 30px rgba(30, 58, 138, 0.08);
 }
 
 .transition-all {
