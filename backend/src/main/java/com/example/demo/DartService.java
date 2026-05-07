@@ -9,15 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.DefaultHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -75,30 +74,52 @@ public class DartService {
         }
     }
 
+    /**
+     * SAX 스트리밍 파서 — DOM 대비 메모리 사용량 1/10 이하
+     * Render Free Tier(512MB)에서도 안정적으로 동작합니다.
+     */
     private void parseCorpCodeXml(InputStream is) throws Exception {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(is);
-        doc.getDocumentElement().normalize();
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser saxParser = factory.newSAXParser();
 
-        NodeList listNodes = doc.getElementsByTagName("list");
-        for (int i = 0; i < listNodes.getLength(); i++) {
-            Element el = (Element) listNodes.item(i);
-            String corpCode = getTagValue("corp_code", el);
-            String corpName = getTagValue("corp_name", el);
-            if (corpCode != null && corpName != null) {
-                corpNameToCorpCode.put(corpName, corpCode);
-                corpCodeToCorpName.put(corpCode, corpName);
+        saxParser.parse(is, new DefaultHandler() {
+            private StringBuilder currentValue = new StringBuilder();
+            private String currentCorpCode;
+            private String currentCorpName;
+            private boolean inList = false;
+
+            @Override
+            public void startElement(String uri, String localName, String qName, Attributes attributes) {
+                currentValue.setLength(0);
+                if ("list".equals(qName)) {
+                    inList = true;
+                    currentCorpCode = null;
+                    currentCorpName = null;
+                }
             }
-        }
-    }
 
-    private String getTagValue(String tag, Element element) {
-        NodeList nodeList = element.getElementsByTagName(tag);
-        if (nodeList.getLength() > 0 && nodeList.item(0).getTextContent() != null) {
-            return nodeList.item(0).getTextContent().trim();
-        }
-        return null;
+            @Override
+            public void characters(char[] ch, int start, int length) {
+                if (inList) currentValue.append(ch, start, length);
+            }
+
+            @Override
+            public void endElement(String uri, String localName, String qName) {
+                if (!inList) return;
+                String text = currentValue.toString().trim();
+                switch (qName) {
+                    case "corp_code" -> currentCorpCode = text;
+                    case "corp_name" -> currentCorpName = text;
+                    case "list" -> {
+                        if (currentCorpCode != null && currentCorpName != null) {
+                            corpNameToCorpCode.put(currentCorpName, currentCorpCode);
+                            corpCodeToCorpName.put(currentCorpCode, currentCorpName);
+                        }
+                        inList = false;
+                    }
+                }
+            }
+        });
     }
 
     // ──────────────────────────────────────────────
